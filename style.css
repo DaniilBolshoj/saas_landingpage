@@ -74,8 +74,6 @@
 /* Theme overrides are activated by the root data-theme attribute. */
 html[data-theme="dark"] {
   color-scheme: dark;
-  --color-primary: var(--color-primary-dark);
-  --color-primary-strong: color-mix(in srgb, var(--color-primary) 80%, var(--color-primary-highlight));
   --color-primary-button-text: #0f172a;
   --color-ink: #f1f5f9;
   --color-ink-soft: #cbd5e1;
@@ -101,6 +99,11 @@ html[data-theme="dark"] {
   --color-icon-pink-fg: #f9a8d4;
   --shadow-card: 0 12px 32px rgb(0 0 0 / 18%);
   --shadow-float: 0 24px 64px rgb(0 0 0 / 34%);
+}
+
+html[data-theme="dark"] body {
+  --color-primary: var(--color-primary-dark);
+  --color-primary-strong: color-mix(in srgb, var(--color-primary) 80%, var(--color-primary-highlight));
 }
 
 *,

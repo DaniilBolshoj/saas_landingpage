@@ -66,7 +66,7 @@ function storeTheme(theme) {
 function updateTheme(theme) {
   const isDark = theme === 'dark';
   root.dataset.theme = isDark ? 'dark' : 'light';
-  const primaryColor = getComputedStyle(root).getPropertyValue('--color-primary').trim();
+  const primaryColor = getComputedStyle(document.body).getPropertyValue('--color-primary').trim();
   if (primaryColor) themeMeta?.setAttribute('content', primaryColor);
 
   themeButtons.forEach((button) => {
