@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="lt" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#4f46e5">
+  <meta name="robots" content="noindex, follow">
+  <meta name="description" content="Pateikite prieigos užklausą prie projekto valdymo demonstracijos.">
+  <title>Prieiga – Pavyzdys</title>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <script src="/site-config.js"></script>
+  <script src="/theme-init.js"></script>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/script.js" defer></script>
+</head>
+<body class="document-page">
+  <a class="skip-link" href="#main">Pereiti prie turinio</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/index.html" data-brand-home><span class="brand-mark" aria-hidden="true"><span class="icon icon-compass"></span></span><span><span data-brand-name>Pavyzdys</span><span class="brand-period">.</span></span></a>
+      <nav class="document-nav" aria-label="Puslapio navigacija"><a href="/index.html#features">Galimybės</a><a href="/index.html#pricing">Kainos</a><a href="/privacy.html">Privatumas</a><a href="#login">Prisijungti</a></nav>
+      <div class="header-actions document-header-actions"><button class="theme-toggle document-theme-toggle" type="button" aria-label="Įjungti tamsią temą" aria-pressed="false"><span class="icon icon-moon" aria-hidden="true"></span><span class="theme-toggle-label">Tamsi tema</span></button></div>
+    </div>
+  </header>
+  <main class="access-layout container" id="main">
+    <section class="access-panel" id="request" aria-labelledby="request-title">
+      <p class="eyebrow">Prieigos užklausa</p>
+      <h1 id="request-title">Gaukite žinią, kai demonstracija bus paruošta.</h1>
+      <p>Šiame šablone paskyrų kūrimo nėra. Palikite el. paštą, jei norite pateikti prieigos užklausą; ji bus išsiųsta tik prijungus formos endpointą.</p>
+      <form class="contact-form access-form" id="access-form" method="post" novalidate>
+        <div class="form-honeypot" aria-hidden="true"><label for="access-website">Palikite šį lauką tuščią</label><input id="access-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+        <div class="form-field">
+          <label for="access-name">Vardas (nebūtina)</label>
+          <input id="access-name" name="name" type="text" autocomplete="name" maxlength="80">
+        </div>
+        <div class="form-field">
+          <label for="access-email">El. paštas</label>
+          <input id="access-email" name="email" type="email" autocomplete="email" required maxlength="254" aria-describedby="access-privacy">
+        </div>
+        <div class="form-consent">
+          <label for="access-privacy-ack"><input id="access-privacy-ack" name="privacy_ack" type="checkbox" required> Susipažinau su <a href="/privacy.html">privatumo politikos ruošiniu</a>.</label>
+        </div>
+        <button class="button button-primary form-submit" type="submit">Pateikti užklausą <span class="icon icon-arrow-right" aria-hidden="true"></span></button>
+        <p class="form-privacy" id="access-privacy">Duomenys naudojami tik atsakant į užklausą. <a href="/privacy.html">Privatumo politikos ruošinys</a> dar turi būti pritaikytas prieš naudojimą.</p>
+      </form>
+    </section>
+    <section class="access-panel access-login" id="login" aria-labelledby="login-title">
+      <p class="eyebrow">Prisijungimas</p>
+      <h2 id="login-title">Paskyrų sistema neįjungta.</h2>
+      <p>Prisijungimo paslaugos ir vartotojų paskyrų šiame statiniame šablone nėra. Jei jau turite paskyrą, susisiekite su paslaugos teikėju.</p>
+      <a class="text-link" href="/index.html#contact">Susisiekti <span class="icon icon-arrow-right" aria-hidden="true"></span></a>
+    </section>
+  </main>
+  <footer class="site-footer"><div class="container footer-bottom"><p>© <span id="current-year">2026</span> <span data-brand-name>Pavyzdys</span>.</p><a href="/terms.html">Naudojimo sąlygos</a></div></footer>
+  <div class="toast" id="form-toast" role="status" aria-live="polite" aria-atomic="true">
+    <span class="toast-icon"><span class="icon icon-check" aria-hidden="true"></span></span>
+    <div><strong class="toast-title">Pranešimas</strong><span class="toast-message"></span></div>
+    <button class="toast-close" type="button" aria-label="Uždaryti pranešimą"><span class="icon icon-xmark" aria-hidden="true"></span></button>
+  </div>
+</body>
+</html>

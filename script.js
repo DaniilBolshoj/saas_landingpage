@@ -13,6 +13,7 @@ const cleanBrandDomain = brandDomain.replace(/^https?:\/\//i, '').replace(/\/+$/
 const brandEmail = config.email?.trim() || 'labas@pavyzdys.example';
 const configuredEndpoint = config.formEndpoint?.trim();
 const contactForm = document.querySelector('#contact-form');
+const accessForm = document.querySelector('#access-form');
 const toast = document.querySelector('#form-toast');
 const demoDialog = document.querySelector('.demo-dialog');
 const contactEndpoint = configuredEndpoint || '';
@@ -75,7 +76,7 @@ function updateTheme(theme) {
     const icon = button.querySelector('.icon');
     icon?.classList.toggle('icon-moon', !isDark);
     icon?.classList.toggle('icon-sun', isDark);
-    const text = button.querySelector('span');
+    const text = button.querySelector('.theme-toggle-label');
     if (text) text.textContent = `${isDark ? 'Šviesi' : 'Tamsi'} tema`;
   });
 }
@@ -153,14 +154,28 @@ demoDialog?.addEventListener('click', (event) => {
 
 document.querySelector('[data-close-demo]')?.addEventListener('click', () => demoDialog?.close());
 
+const demoTaskInputs = demoDialog?.querySelectorAll('.demo-tasks input') || [];
+const demoProgress = demoDialog?.querySelector('[data-demo-progress]');
+
+demoTaskInputs.forEach((input) => {
+  input.addEventListener('change', () => {
+    const completed = [...demoTaskInputs].filter((task) => task.checked).length;
+    if (demoProgress) demoProgress.textContent = `Užbaigta ${completed} iš ${demoTaskInputs.length} užduočių.`;
+  });
+});
+
 /* Native constraint validation is paired with field-specific, accessible messages. */
 const fields = [
   { input: document.querySelector('#contact-name'), error: document.querySelector('#name-error'), label: 'Vardas' },
   { input: document.querySelector('#contact-email'), error: document.querySelector('#email-error'), label: 'El. paštas' },
   { input: document.querySelector('#contact-message'), error: document.querySelector('#message-error'), label: 'Žinutė' },
+  { input: document.querySelector('#privacy-ack'), error: document.querySelector('#privacy-error'), label: 'Privatumo patvirtinimas' },
 ];
 
 function getFieldError(input, label) {
+  if (input.type === 'checkbox' && input.validity.valueMissing) {
+    return 'Patvirtinkite, kad susipažinote su privatumo politikos ruošiniu.';
+  }
   if (input.validity.valueMissing) return `Įveskite lauką „${label}“.`;
   if (input.validity.typeMismatch) return 'Įveskite galiojantį el. pašto adresą.';
   if (input.validity.tooShort) return `Lauke „${label}“ įveskite bent ${input.minLength} simbolius.`;
@@ -176,7 +191,7 @@ function validateField(field) {
 }
 
 fields.forEach((field) => {
-  field.input.addEventListener('input', () => {
+  field.input?.addEventListener('input', () => {
     if (field.input.getAttribute('aria-invalid') === 'true') validateField(field);
   });
 });
@@ -237,6 +252,41 @@ contactForm?.addEventListener('submit', (event) => {
     .finally(() => {
       submitButton.disabled = false;
       contactForm.removeAttribute('aria-busy');
+    });
+});
+
+accessForm?.addEventListener('submit', (event) => {
+  event.preventDefault();
+  if (!accessForm.reportValidity()) return;
+  if (accessForm.querySelector('#access-website')?.value.trim()) return;
+
+  if (!contactEndpoint) {
+    showToast('Demonstracinis režimas', 'Užklausa neišsiųsta. Prijunkite formos endpointą.');
+    return;
+  }
+
+  const submitButton = accessForm.querySelector('[type="submit"]');
+  const formData = new FormData(accessForm);
+  formData.set('requestType', 'access');
+  submitButton.disabled = true;
+  accessForm.setAttribute('aria-busy', 'true');
+
+  fetch(contactEndpoint, {
+    method: 'POST',
+    headers: { Accept: 'application/json' },
+    body: formData,
+  })
+    .then((response) => {
+      if (!response.ok) throw new Error(`Access request failed (${response.status}).`);
+      accessForm.reset();
+      showToast('Užklausa išsiųsta', 'Ačiū. Susisieksime nurodytu el. paštu.');
+    })
+    .catch(() => {
+      showToast('Nepavyko išsiųsti', 'Patikrinkite ryšį arba bandykite dar kartą.');
+    })
+    .finally(() => {
+      submitButton.disabled = false;
+      accessForm.removeAttribute('aria-busy');
     });
 });
 
