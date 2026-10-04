@@ -51,8 +51,9 @@ document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', do
 const canonicalUrl = `https://${cleanBrandDomain}/`;
 document.querySelector('link[rel="canonical"]')?.setAttribute('href', canonicalUrl);
 document.querySelector('meta[property="og:url"]')?.setAttribute('content', canonicalUrl);
-document.querySelector('meta[property="og:image"]')?.setAttribute('content', `${canonicalUrl}assets/og-cover.svg`);
-document.querySelector('meta[name="twitter:image"]')?.setAttribute('content', `${canonicalUrl}assets/og-cover.svg`);
+document.querySelector('meta[property="og:image"]')?.setAttribute('content', `${canonicalUrl}assets/og-cover.png`);
+document.querySelector('meta[name="twitter:image"]')?.setAttribute('content', `${canonicalUrl}assets/og-cover.png`);
+document.querySelector('meta[name="twitter:card"]')?.setAttribute('content', 'summary_large_image');
 
 /* Theme preference is remembered when storage is available and otherwise remains usable. */
 function readStoredTheme() {
@@ -74,8 +75,8 @@ function storeTheme(theme) {
 function updateTheme(theme) {
   const isDark = theme === 'dark';
   root.dataset.theme = isDark ? 'dark' : 'light';
-  const primaryColor = getComputedStyle(document.body).getPropertyValue('--color-primary').trim();
-  if (primaryColor) themeMeta?.setAttribute('content', primaryColor);
+  const browserChromeColor = getComputedStyle(document.body).getPropertyValue('--color-browser-chrome').trim();
+  if (browserChromeColor) themeMeta?.setAttribute('content', browserChromeColor);
 
   themeButtons.forEach((button) => {
     button.setAttribute('aria-pressed', String(isDark));

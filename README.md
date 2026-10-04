@@ -38,8 +38,8 @@ Atverkite `http://localhost:8000`. Kontaktų ir prieigos užklausų formos be `s
 ## Pritaikymas
 
 1. `site-config.js` pakeiskite prekės ženklo pavadinimą, domeną, el. paštą ir `themeStorageKey`. „Pavyzdys“ ir rezervuotas `.example` domenas yra tik demonstraciniai; „Pavyzdys“ nėra patikrintas prekių ženklų registruose.
-2. `og:url` ir canonical reikšmes `index.html`, taip pat domeną `sitemap.xml` ir `robots.txt` atnaujinkite produkcijai.
-3. `style.css` pradžioje keiskite `--color-primary`, teksto, paviršiaus ir ribų tokenus. Tamsios temos primary išvedamas iš to paties pagrindinio tokeno; pakeitę spalvas, dar kartą patikrinkite kontrastą. `assets/favicon.svg` ir `assets/og-cover.svg` spalvos redaguojamos atskirai.
+2. `og:url`, `og:image`, `twitter:image`, canonical ir `twitter:card` reikšmes redaguokite tiesiogiai `index.html` produkcinėms vertėms, nes socialiniai robotai JavaScript neįvykdo. `site-config.js` užpildytos vertės padeda naršyklėje veikiantiems rodiniams, bet HTML meta žymės turi būti atnaujintos ir čia, ne tik skripte.
+3. `style.css` pradžioje keiskite `--color-primary`, teksto, paviršiaus ir ribų tokenus. Tamsios temos primary išvedamas iš to paties pagrindinio tokeno; pakeitę spalvas, dar kartą patikrinkite kontrastą. `assets/favicon.svg` ir `assets/og-cover.svg` spalvos redaguojamos atskirai. Produkcijai sugeneruokite `assets/og-cover.png` ir `assets/favicon-180.png`, jei reikia socialinių kortelių ir Apple ikonos.
 4. `--font-body` ir `--font-display` tokenai parenka vietinius „DejaVu Sans“ failus. Keisdami šriftą atnaujinkite `assets/fonts/` ir `THIRD-PARTY.md`.
 5. Pakeiskite pavyzdinius tekstus, planus, kainas ir naudojimo atvejus. Šablone nėra klientų atsiliepimų ar patvirtintų produkto rezultatų; palikite tik įrodymus, kuriuos galite pagrįsti.
 6. Formai įrašykite HTTPS `formEndpoint` reikšmę `site-config.js`. Endpointas turi priimti `POST` su `FormData` ir `Accept: application/json` antrašte. Serveris turi tikrinti honeypot lauką, validuoti įvestis ir riboti užklausas. Naršyklės validacija nepakeičia serverio saugumo ar BDAR atitikties.
