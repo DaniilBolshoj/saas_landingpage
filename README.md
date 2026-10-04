@@ -20,6 +20,11 @@ Lietuviškas, statinis B2B SaaS nukreipimo puslapis be JavaScript karkasų, ikon
 - `AI-DISCLOSURE.md` – informacija apie generatyvinio DI naudojimą rengiant kodą ir tekstus.
 - `CHANGELOG.md` – šablono versijos pastabos.
 
+## 1.0.1-draft – 2026-10-04
+
+- Pašalinta demonstracinė registracija ir prisijungimas; šablone lieka tik prieigos užklausų forma.
+- Išvalyti anksčiau saugoti demonstraciniai "saas-demo-users" ir "saas-demo-session" duomenys, kad jie neišliktų naršyklėje.
+
 ## Paleidimas
 
 Svetainė veikia kaip statiniai failai; kūrimo žingsnio nereikia. Patogiam testavimui iš šio katalogo paleiskite:

@@ -18,6 +18,13 @@ const toast = document.querySelector('#form-toast');
 const demoDialog = document.querySelector('.demo-dialog');
 const contactEndpoint = configuredEndpoint || '';
 
+try {
+  localStorage.removeItem('saas-demo-users');
+  sessionStorage.removeItem('saas-demo-session');
+} catch {
+  // Legacy demo auth data can be removed after a few releases.
+}
+
 document.querySelectorAll('[data-brand-name]').forEach((element) => {
   element.textContent = brandName;
 });
@@ -165,32 +172,54 @@ demoTaskInputs.forEach((input) => {
 });
 
 /* Native constraint validation is paired with field-specific, accessible messages. */
-const fields = [
+const contactFields = [
   { input: document.querySelector('#contact-name'), error: document.querySelector('#name-error'), label: 'Vardas' },
   { input: document.querySelector('#contact-email'), error: document.querySelector('#email-error'), label: 'El. paštas' },
   { input: document.querySelector('#contact-message'), error: document.querySelector('#message-error'), label: 'Žinutė' },
   { input: document.querySelector('#privacy-ack'), error: document.querySelector('#privacy-error'), label: 'Privatumo patvirtinimas' },
 ];
 
+const accessFields = [
+  { input: document.querySelector('#access-email'), error: document.querySelector('#access-email-error'), label: 'El. paštas' },
+  { input: document.querySelector('#access-privacy-ack'), error: document.querySelector('#access-privacy-error'), label: 'Privatumo patvirtinimas' },
+];
+
+function ltPlural(n, one, few, many) {
+  const remainder10 = n % 10;
+  const remainder100 = n % 100;
+
+  if (remainder10 === 1 && remainder100 !== 11) return one;
+  if (remainder10 >= 2 && remainder10 <= 9 && !(remainder100 >= 12 && remainder100 <= 19)) return few;
+  return many;
+}
+
 function getFieldError(input, label) {
+  if (!input) return '';
   if (input.type === 'checkbox' && input.validity.valueMissing) {
     return 'Patvirtinkite, kad susipažinote su privatumo politikos ruošiniu.';
   }
   if (input.validity.valueMissing) return `Įveskite lauką „${label}“.`;
   if (input.validity.typeMismatch) return 'Įveskite galiojantį el. pašto adresą.';
-  if (input.validity.tooShort) return `Lauke „${label}“ įveskite bent ${input.minLength} simbolius.`;
+  if (input.validity.tooShort) return `Lauke „${label}“ įveskite bent ${input.minLength} ${ltPlural(input.minLength, 'simbolį', 'simbolius', 'simbolių')}.`;
   if (input.validity.tooLong) return `Lauke „${label}“ galima įvesti iki ${input.maxLength} simbolių.`;
   return '';
 }
 
 function validateField(field) {
+  if (!field || !field.input || !field.error) return true;
   const message = getFieldError(field.input, field.label);
   field.input.setAttribute('aria-invalid', String(Boolean(message)));
   field.error.textContent = message;
   return !message;
 }
 
-fields.forEach((field) => {
+contactFields.forEach((field) => {
+  field.input?.addEventListener('input', () => {
+    if (field.input.getAttribute('aria-invalid') === 'true') validateField(field);
+  });
+});
+
+accessFields.forEach((field) => {
   field.input?.addEventListener('input', () => {
     if (field.input.getAttribute('aria-invalid') === 'true') validateField(field);
   });
@@ -199,6 +228,7 @@ fields.forEach((field) => {
 let toastTimer;
 
 function showToast(title, message) {
+  if (!toast) return;
   window.clearTimeout(toastTimer);
   toast.querySelector('.toast-title').textContent = title;
   toast.querySelector('.toast-message').textContent = message;
@@ -217,7 +247,7 @@ contactForm?.addEventListener('submit', (event) => {
   const honeypot = contactForm.querySelector('#contact-website');
   if (honeypot?.value.trim()) return;
 
-  const invalidFields = fields.filter((field) => !validateField(field));
+  const invalidFields = contactFields.filter((field) => !validateField(field));
   if (invalidFields.length > 0) {
     invalidFields[0].input.focus();
     return;
@@ -240,7 +270,7 @@ contactForm?.addEventListener('submit', (event) => {
     .then((response) => {
       if (!response.ok) throw new Error(`Form submission failed (${response.status}).`);
       contactForm.reset();
-      fields.forEach(({ input, error }) => {
+      contactFields.forEach(({ input, error }) => {
         input.removeAttribute('aria-invalid');
         error.textContent = '';
       });
@@ -257,8 +287,15 @@ contactForm?.addEventListener('submit', (event) => {
 
 accessForm?.addEventListener('submit', (event) => {
   event.preventDefault();
-  if (!accessForm.reportValidity()) return;
-  if (accessForm.querySelector('#access-website')?.value.trim()) return;
+
+  const honeypot = accessForm.querySelector('#access-website');
+  if (honeypot?.value.trim()) return;
+
+  const invalidFields = accessFields.filter((field) => !validateField(field));
+  if (invalidFields.length > 0) {
+    invalidFields[0].input.focus();
+    return;
+  }
 
   if (!contactEndpoint) {
     showToast('Demonstracinis režimas', 'Užklausa neišsiųsta. Prijunkite formos endpointą.');
@@ -279,6 +316,10 @@ accessForm?.addEventListener('submit', (event) => {
     .then((response) => {
       if (!response.ok) throw new Error(`Access request failed (${response.status}).`);
       accessForm.reset();
+      accessFields.forEach(({ input, error }) => {
+        input.removeAttribute('aria-invalid');
+        error.textContent = '';
+      });
       showToast('Užklausa išsiųsta', 'Ačiū. Susisieksime nurodytu el. paštu.');
     })
     .catch(() => {
@@ -289,255 +330,6 @@ accessForm?.addEventListener('submit', (event) => {
       accessForm.removeAttribute('aria-busy');
     });
 });
-
-const authUsersKey = 'saas-demo-users';
-const authSessionKey = 'saas-demo-session';
-const authTabs = document.querySelectorAll('.auth-tab');
-const authForms = document.querySelectorAll('.auth-form');
-const authSession = document.querySelector('#auth-session');
-const authSessionUser = document.querySelector('#session-user');
-const authSessionEmail = document.querySelector('.session-email');
-const authLogoutButton = document.querySelector('.auth-logout');
-
-function readUsers() {
-  try {
-    const users = JSON.parse(localStorage.getItem(authUsersKey) || '[]');
-    return Array.isArray(users) ? users : [];
-  } catch {
-    return [];
-  }
-}
-
-function writeUsers(users) {
-  try {
-    localStorage.setItem(authUsersKey, JSON.stringify(users));
-  } catch {
-    // Storage can be unavailable in private browsing modes.
-  }
-}
-
-function readSession() {
-  try {
-    const session = JSON.parse(sessionStorage.getItem(authSessionKey) || 'null');
-    if (!session || !session.email) return null;
-    return session;
-  } catch {
-    return null;
-  }
-}
-
-function writeSession(session) {
-  try {
-    sessionStorage.setItem(authSessionKey, JSON.stringify(session));
-  } catch {
-    // Session storage is optional in restricted browsing contexts.
-  }
-}
-
-function clearSession() {
-  try {
-    sessionStorage.removeItem(authSessionKey);
-  } catch {
-    // Ignore storage errors and continue showing the login flow.
-  }
-}
-
-function setFieldError(input, message) {
-  const errorNode = document.getElementById(`${input.id}-error`);
-  input.setAttribute('aria-invalid', String(Boolean(message)));
-  if (errorNode) errorNode.textContent = message;
-}
-
-function setAuthTab(tabName) {
-  authTabs.forEach((button) => {
-    const isActive = button.dataset.authTab === tabName;
-    button.classList.toggle('is-active', isActive);
-    button.setAttribute('aria-selected', String(isActive));
-  });
-
-  authForms.forEach((form) => {
-    const isActive = form.id === `${tabName}-form`;
-    form.classList.toggle('is-active', isActive);
-    form.hidden = !isActive;
-  });
-}
-
-function updateAuthState() {
-  const session = readSession();
-  const isLoggedIn = Boolean(session);
-
-  authTabs.forEach((button) => {
-    button.hidden = isLoggedIn;
-  });
-
-  if (authSession) {
-    authSession.classList.toggle('is-hidden', !isLoggedIn);
-  }
-
-  authForms.forEach((form) => {
-    form.classList.toggle('is-hidden', isLoggedIn);
-    if (isLoggedIn && form.classList.contains('is-active')) {
-      form.classList.remove('is-active');
-    }
-  });
-
-  if (isLoggedIn) {
-    const name = session.name || 'Naudotojau';
-    if (authSessionUser) authSessionUser.textContent = `Sveiki, ${name}!`;
-    if (authSessionEmail) authSessionEmail.textContent = session.email;
-    return;
-  }
-
-  setAuthTab('login');
-  authForms.forEach((form) => {
-    form.querySelectorAll('input').forEach((input) => {
-      if (input.type !== 'checkbox') input.value = '';
-      if (input.type === 'checkbox') input.checked = false;
-      setFieldError(input, '');
-    });
-  });
-}
-
-function normalizeEmail(value) {
-  return value.trim().toLowerCase();
-}
-
-authTabs.forEach((button) => {
-  button.addEventListener('click', () => {
-    if (readSession()) return;
-    setAuthTab(button.dataset.authTab || 'login');
-  });
-});
-
-function validateAuthEmail(input, label) {
-  const value = normalizeEmail(input.value);
-  if (!value) return `${label} lauką būtina užpildyti.`;
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return 'Įveskite galiojantį el. pašto adresą.';
-  return '';
-}
-
-authForms.forEach((form) => {
-  form.querySelectorAll('input').forEach((input) => {
-    input.addEventListener('input', () => {
-      if (input.getAttribute('aria-invalid') === 'true') {
-        setFieldError(input, '');
-      }
-    });
-  });
-});
-
-const loginForm = document.querySelector('#login-form');
-const registerForm = document.querySelector('#register-form');
-
-loginForm?.addEventListener('submit', (event) => {
-  event.preventDefault();
-
-  const emailInput = loginForm.querySelector('#login-email');
-  const passwordInput = loginForm.querySelector('#login-password');
-  const emailError = validateAuthEmail(emailInput, 'El. paštas');
-  const passwordError = passwordInput.value.trim().length >= 8 ? '' : 'Slaptažodis turi būti bent 8 simbolių.';
-
-  setFieldError(emailInput, emailError);
-  setFieldError(passwordInput, passwordError);
-
-  if (emailError || passwordError) {
-    const firstError = loginForm.querySelector('[aria-invalid="true"]');
-    firstError?.focus();
-    return;
-  }
-
-  const users = readUsers();
-  const user = users.find((entry) => normalizeEmail(entry.email) === normalizeEmail(emailInput.value));
-
-  if (!user || user.password !== passwordInput.value) {
-    setFieldError(emailInput, 'Neteisingas el. paštas arba slaptažodis.');
-    setFieldError(passwordInput, 'Neteisingas el. paštas arba slaptažodis.');
-    return;
-  }
-
-  writeSession({ name: user.name, email: user.email });
-  updateAuthState();
-  showToast('Prisijungta', `Sveiki, ${user.name}!`);
-  loginForm.reset();
-});
-
-registerForm?.addEventListener('submit', (event) => {
-  event.preventDefault();
-
-  const nameInput = registerForm.querySelector('#register-name');
-  const emailInput = registerForm.querySelector('#register-email');
-  const passwordInput = registerForm.querySelector('#register-password');
-  const confirmInput = registerForm.querySelector('#register-confirm-password');
-  const acceptInput = registerForm.querySelector('#register-accept');
-
-  const users = readUsers();
-  const name = nameInput.value.trim();
-  const email = normalizeEmail(emailInput.value);
-  const password = passwordInput.value;
-
-  let hasError = false;
-
-  if (!name) {
-    setFieldError(nameInput, 'Įveskite vardą ir pavardę.');
-    hasError = true;
-  } else {
-    setFieldError(nameInput, '');
-  }
-
-  const emailError = validateAuthEmail(emailInput, 'El. paštas');
-  if (emailError) {
-    setFieldError(emailInput, emailError);
-    hasError = true;
-  } else if (users.some((user) => normalizeEmail(user.email) === email)) {
-    setFieldError(emailInput, 'Toks el. paštas jau registruotas.');
-    hasError = true;
-  } else {
-    setFieldError(emailInput, '');
-  }
-
-  if (password.length < 8) {
-    setFieldError(passwordInput, 'Slaptažodis turi būti bent 8 simbolių.');
-    hasError = true;
-  } else {
-    setFieldError(passwordInput, '');
-  }
-
-  if (confirmInput.value !== password || confirmInput.value.length < 8) {
-    setFieldError(confirmInput, 'Slaptažodžiai turi sutapti.');
-    hasError = true;
-  } else {
-    setFieldError(confirmInput, '');
-  }
-
-  const acceptError = acceptInput.checked ? '' : 'Patvirtinkite sąlygas.';
-  if (acceptError) {
-    acceptInput.setAttribute('aria-invalid', 'true');
-    hasError = true;
-  } else {
-    acceptInput.setAttribute('aria-invalid', 'false');
-  }
-
-  if (hasError) {
-    const firstError = registerForm.querySelector('[aria-invalid="true"]');
-    firstError?.focus();
-    return;
-  }
-
-  users.push({ id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()), name, email, password });
-  writeUsers(users);
-  writeSession({ name, email });
-  updateAuthState();
-  showToast('Paskyra sukurta', 'Registracija sėkminga.');
-  registerForm.reset();
-});
-
-authLogoutButton?.addEventListener('click', () => {
-  clearSession();
-  updateAuthState();
-  showToast('Atsijungta', 'Jūs sėkmingai atsijungėte.');
-});
-
-updateAuthState();
 
 /* Keep the footer year current without requiring a build step. */
 const year = document.querySelector('#current-year');

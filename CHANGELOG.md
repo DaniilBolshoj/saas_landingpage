@@ -1,5 +1,11 @@
 # Pakeitimų žurnalas
 
+## 1.0.1-draft – 2026-10-04
+
+- Pašalinta demonstracinė registracija ir prisijungimo sistema iš puslapio ir skriptų.
+- Išvalyti anksčiau įrašyti demonstraciniai autentifikacijos duomenys naršyklės saugykloje.
+- Prieigos puslapyje liko tik prieigos užklausos forma ir teisingas dokumentacijos aprašymas.
+
 ## 1.0.0-draft – 2026-09-30
 
 - Pridėtas lietuviškas, responsyvus kelių puslapių SaaS šablonas su neutraliu „Pavyzdys“ prekės ženklo pavyzdžiu.
