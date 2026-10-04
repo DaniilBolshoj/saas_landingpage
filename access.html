@@ -7,18 +7,18 @@
   <meta name="robots" content="noindex, follow">
   <meta name="description" content="Pateikite prieigos užklausą prie projekto valdymo demonstracijos.">
   <title>Prieiga – Pavyzdys</title>
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <script src="site-config.js"></script>
-  <script src="theme-init.js"></script>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <script src="/site-config.js"></script>
+  <script src="/theme-init.js"></script>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/script.js" defer></script>
 </head>
 <body class="document-page">
   <a class="skip-link" href="#main">Pereiti prie turinio</a>
   <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="/index.html" data-brand-home><span class="brand-mark" aria-hidden="true"><span class="icon icon-compass"></span></span><span><span data-brand-name>Pavyzdys</span><span class="brand-period">.</span></span></a>
-      <nav class="document-nav" aria-label="Puslapio navigacija"><a href="index.html#features">Galimybės</a><a href="index.html#pricing">Kainos</a><a href="privacy.html">Privatumas</a></nav>
+      <nav class="document-nav" aria-label="Puslapio navigacija"><a href="/index.html#features">Galimybės</a><a href="/index.html#pricing">Kainos</a><a href="/privacy.html">Privatumas</a><a href="#login">Prisijungti</a></nav>
       <div class="header-actions document-header-actions"><button class="theme-toggle document-theme-toggle" type="button" aria-label="Įjungti tamsią temą" aria-pressed="false"><span class="icon icon-moon" aria-hidden="true"></span><span class="theme-toggle-label">Tamsi tema</span></button></div>
     </div>
   </header>
@@ -35,17 +35,74 @@
         </div>
         <div class="form-field">
           <label for="access-email">El. paštas</label>
-          <input id="access-email" name="email" type="email" autocomplete="email" required maxlength="254" aria-describedby="access-email-error access-privacy">
-          <span class="field-error" id="access-email-error" aria-live="polite"></span>
+          <input id="access-email" name="email" type="email" autocomplete="email" required maxlength="254" aria-describedby="access-privacy">
         </div>
         <div class="form-consent">
-          <label for="access-privacy-ack"><input id="access-privacy-ack" name="privacy_ack" type="checkbox" required aria-describedby="access-privacy-error"> Susipažinau su <a href="privacy.html">privatumo politikos ruošiniu</a>.</label>
-          <span class="field-error" id="access-privacy-error" aria-live="polite"></span>
+          <label for="access-privacy-ack"><input id="access-privacy-ack" name="privacy_ack" type="checkbox" required> Susipažinau su <a href="/privacy.html">privatumo politikos ruošiniu</a>.</label>
         </div>
         <button class="button button-primary form-submit" type="submit">Pateikti užklausą <span class="icon icon-arrow-right" aria-hidden="true"></span></button>
-        <noscript><p class="noscript-note">Forma veikia tik įjungus JavaScript. Rašykite el. paštu: <a href="mailto:labas@pavyzdys.example">labas@pavyzdys.example</a>.</p></noscript>
-        <p class="form-privacy" id="access-privacy">Duomenys naudojami tik atsakant į užklausą. <a href="privacy.html">Privatumo politikos ruošinys</a> dar turi būti pritaikytas prieš naudojimą.</p>
+        <p class="form-privacy" id="access-privacy">Duomenys naudojami tik atsakant į užklausą. <a href="/privacy.html">Privatumo politikos ruošinys</a> dar turi būti pritaikytas prieš naudojimą.</p>
       </form>
+    </section>
+    <section class="access-panel access-login" id="login" aria-labelledby="login-title">
+      <p class="eyebrow">Prisijungimas</p>
+      <h2 id="login-title">Sukurkite paskyrą arba prisijunkite</h2>
+      <div class="auth-shell">
+        <div class="auth-tabs" role="tablist" aria-label="Autentifikacija">
+          <button class="auth-tab is-active" type="button" data-auth-tab="login" role="tab" aria-selected="true" aria-controls="login-form">Prisijungti</button>
+          <button class="auth-tab" type="button" data-auth-tab="register" role="tab" aria-selected="false" aria-controls="register-form">Registruotis</button>
+        </div>
+
+        <div class="auth-card">
+          <div class="auth-session is-hidden" id="auth-session" aria-live="polite">
+            <p class="eyebrow">Prisijungta</p>
+            <h3 id="session-user">Sveiki, naudotojau</h3>
+            <p class="session-email">labas@pavyzdys.example</p>
+            <button class="button button-secondary auth-logout" type="button">Atsijungti</button>
+          </div>
+
+          <form class="auth-form is-active" id="login-form" novalidate>
+            <div class="form-field">
+              <label for="login-email">El. paštas</label>
+              <input id="login-email" name="email" type="email" autocomplete="email" required>
+              <span class="field-error" id="login-email-error" aria-live="polite"></span>
+            </div>
+            <div class="form-field">
+              <label for="login-password">Slaptažodis</label>
+              <input id="login-password" name="password" type="password" autocomplete="current-password" required minlength="8">
+              <span class="field-error" id="login-password-error" aria-live="polite"></span>
+            </div>
+            <button class="button button-primary form-submit" type="submit">Prisijungti <span class="icon icon-arrow-right" aria-hidden="true"></span></button>
+          </form>
+
+          <form class="auth-form" id="register-form" novalidate hidden>
+            <div class="form-field">
+              <label for="register-name">Vardas ir pavardė</label>
+              <input id="register-name" name="name" type="text" autocomplete="name" required maxlength="80">
+              <span class="field-error" id="register-name-error" aria-live="polite"></span>
+            </div>
+            <div class="form-field">
+              <label for="register-email">El. paštas</label>
+              <input id="register-email" name="email" type="email" autocomplete="email" required maxlength="254">
+              <span class="field-error" id="register-email-error" aria-live="polite"></span>
+            </div>
+            <div class="form-field">
+              <label for="register-password">Slaptažodis</label>
+              <input id="register-password" name="password" type="password" autocomplete="new-password" required minlength="8">
+              <span class="field-error" id="register-password-error" aria-live="polite"></span>
+            </div>
+            <div class="form-field">
+              <label for="register-confirm-password">Pakartokite slaptažodį</label>
+              <input id="register-confirm-password" name="confirmPassword" type="password" autocomplete="new-password" required minlength="8">
+              <span class="field-error" id="register-confirm-password-error" aria-live="polite"></span>
+            </div>
+            <div class="form-consent">
+              <label for="register-accept"><input id="register-accept" name="accept" type="checkbox" required> Sutinku su <a href="/terms.html">naudojimo sąlygomis</a>.</label>
+            </div>
+            <button class="button button-primary form-submit" type="submit">Sukurti paskyrą <span class="icon icon-arrow-right" aria-hidden="true"></span></button>
+          </form>
+        </div>
+      </div>
     </section>
   </main>
   <footer class="site-footer"><div class="container footer-bottom"><p>© <span id="current-year">2026</span> <span data-brand-name>Pavyzdys</span>.</p><a href="/terms.html">Naudojimo sąlygos</a></div></footer>
