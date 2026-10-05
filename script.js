@@ -176,14 +176,24 @@ const accessFields = [
   { input: document.querySelector('#access-privacy-ack'), error: document.querySelector('#access-privacy-error'), label: 'Privatumo patvirtinimas' },
 ];
 
+function ltPlural(n, one, few, many) {
+  const absolute = Math.abs(n);
+  const lastTwoDigits = absolute % 100;
+  if (lastTwoDigits >= 11 && lastTwoDigits <= 19) return many;
+  const lastDigit = absolute % 10;
+  if (lastDigit === 1) return one;
+  if (lastDigit >= 2 && lastDigit <= 9) return few;
+  return many;
+}
+
 function getFieldError(input, label) {
   if (input.type === 'checkbox' && input.validity.valueMissing) {
     return 'Patvirtinkite, kad susipažinote su privatumo politikos ruošiniu.';
   }
   if (input.validity.valueMissing) return `Įveskite lauką „${label}“.`;
   if (input.validity.typeMismatch) return 'Įveskite galiojantį el. pašto adresą.';
-  if (input.validity.tooShort) return `Lauke „${label}“ įveskite bent ${input.minLength} simbolius.`;
-  if (input.validity.tooLong) return `Lauke „${label}“ galima įvesti iki ${input.maxLength} simbolių.`;
+  if (input.validity.tooShort) return `Lauke „${label}“ įveskite bent ${input.minLength} ${ltPlural(input.minLength, 'simbolį', 'simbolius', 'simbolių')}.`;
+  if (input.validity.tooLong) return `Lauke „${label}“ galima įvesti iki ${input.maxLength} ${ltPlural(input.maxLength, 'simbolį', 'simbolius', 'simbolių')}.`;
   return '';
 }
 
