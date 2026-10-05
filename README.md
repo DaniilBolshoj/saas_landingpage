@@ -51,4 +51,3 @@ Atverkite `http://localhost:8000`. Kontaktų ir prieigos užklausų formos be `s
 - Patikrinkite formą su tikru endpointu; numatytoji `.example` konfigūracija laiškų nesiunčia.
 - Įsitikinkite, kad `robots.txt`, canonical nuoroda ir `sitemap.xml` nurodo produkcinį domeną.
 - Patikrinkite, ar pirkėjui perduodama šio paketo licencija, trečiųjų šalių sąrašas ir reikiamos pradinės sutarties sąlygos.
-- Pridėkite `AI-DISCLOSURE.md` prie perdavimo dokumentų ir užpildykite `LICENSE-TEMPLATE.md` tik po teisininko peržiūros.
