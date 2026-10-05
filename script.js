@@ -171,6 +171,10 @@ const fields = [
   { input: document.querySelector('#contact-message'), error: document.querySelector('#message-error'), label: 'Žinutė' },
   { input: document.querySelector('#privacy-ack'), error: document.querySelector('#privacy-error'), label: 'Privatumo patvirtinimas' },
 ];
+const accessFields = [
+  { input: document.querySelector('#access-email'), error: document.querySelector('#access-email-error'), label: 'El. paštas' },
+  { input: document.querySelector('#access-privacy-ack'), error: document.querySelector('#access-privacy-error'), label: 'Privatumo patvirtinimas' },
+];
 
 function getFieldError(input, label) {
   if (input.type === 'checkbox' && input.validity.valueMissing) {
@@ -190,7 +194,7 @@ function validateField(field) {
   return !message;
 }
 
-fields.forEach((field) => {
+fields.concat(accessFields).forEach((field) => {
   field.input?.addEventListener('input', () => {
     if (field.input.getAttribute('aria-invalid') === 'true') validateField(field);
   });
@@ -199,6 +203,7 @@ fields.forEach((field) => {
 let toastTimer;
 
 function showToast(title, message) {
+  if (!toast) return;
   window.clearTimeout(toastTimer);
   toast.querySelector('.toast-title').textContent = title;
   toast.querySelector('.toast-message').textContent = message;
@@ -257,8 +262,13 @@ contactForm?.addEventListener('submit', (event) => {
 
 accessForm?.addEventListener('submit', (event) => {
   event.preventDefault();
-  if (!accessForm.reportValidity()) return;
   if (accessForm.querySelector('#access-website')?.value.trim()) return;
+
+  const invalidFields = accessFields.filter((field) => !validateField(field));
+  if (invalidFields.length > 0) {
+    invalidFields[0].input.focus();
+    return;
+  }
 
   if (!contactEndpoint) {
     showToast('Demonstracinis režimas', 'Užklausa neišsiųsta. Prijunkite formos endpointą.');

@@ -35,12 +35,15 @@
         </div>
         <div class="form-field">
           <label for="access-email">El. paštas</label>
-          <input id="access-email" name="email" type="email" autocomplete="email" required maxlength="254" aria-describedby="access-privacy">
+          <input id="access-email" name="email" type="email" autocomplete="email" required maxlength="254" aria-describedby="access-privacy access-email-error">
+          <span class="field-error" id="access-email-error" aria-live="polite"></span>
         </div>
         <div class="form-consent">
-          <label for="access-privacy-ack"><input id="access-privacy-ack" name="privacy_ack" type="checkbox" required> Susipažinau su <a href="privacy.html">privatumo politikos ruošiniu</a>.</label>
+          <label for="access-privacy-ack"><input id="access-privacy-ack" name="privacy_ack" type="checkbox" required aria-describedby="access-privacy-error"> Susipažinau su <a href="privacy.html">privatumo politikos ruošiniu</a>.</label>
+          <span class="field-error" id="access-privacy-error" aria-live="polite"></span>
         </div>
         <button class="button button-primary form-submit" type="submit">Pateikti užklausą <span class="icon icon-arrow-right" aria-hidden="true"></span></button>
+        <noscript><p class="noscript-note">Forma veikia tik įjungus JavaScript. Rašykite el. paštu: <a href="mailto:labas@pavyzdys.example">labas@pavyzdys.example</a>.</p></noscript>
         <p class="form-privacy" id="access-privacy">Duomenys naudojami tik atsakant į užklausą. <a href="privacy.html">Privatumo politikos ruošinys</a> dar turi būti pritaikytas prieš naudojimą.</p>
       </form>
     </section>
