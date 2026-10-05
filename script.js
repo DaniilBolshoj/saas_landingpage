@@ -67,8 +67,8 @@ function storeTheme(theme) {
 function updateTheme(theme) {
   const isDark = theme === 'dark';
   root.dataset.theme = isDark ? 'dark' : 'light';
-  const primaryColor = getComputedStyle(document.body).getPropertyValue('--color-primary').trim();
-  if (primaryColor) themeMeta?.setAttribute('content', primaryColor);
+  const browserChrome = getComputedStyle(document.body).getPropertyValue('--color-browser-chrome').trim();
+  if (browserChrome) themeMeta?.setAttribute('content', browserChrome);
 
   themeButtons.forEach((button) => {
     button.setAttribute('aria-pressed', String(isDark));
