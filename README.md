@@ -17,7 +17,6 @@ Lietuviškas, statinis B2B SaaS nukreipimo puslapis be JavaScript karkasų, ikon
 - `THIRD-PARTY.md` – supakuotų išorinių išteklių kilmė ir licencija.
 - `LICENSE-TEMPLATE.md` – sutarties ruošinys; tai nėra individuali teisinė konsultacija.
 - `RIGHTS-TRANSFER-CHECKLIST.md` – versijos, turto grandinės ir galimo teisių perleidimo kontrolinis sąrašas.
-- `AI-DISCLOSURE.md` – informacija apie generatyvinio DI naudojimą rengiant kodą ir tekstus.
 - `CHANGELOG.md` – šablono versijos pastabos.
 
 ## 1.0.1-draft – 2026-10-04
