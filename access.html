@@ -19,14 +19,14 @@
     <div class="container header-inner">
       <a class="brand" href="index.html" data-brand-home><span class="brand-mark" aria-hidden="true"><span class="icon icon-compass"></span></span><span><span data-brand-name>Pavyzdys</span><span class="brand-period">.</span></span></a>
       <nav class="document-nav" aria-label="Puslapio navigacija"><a href="index.html#features">Galimybės</a><a href="index.html#pricing">Kainos</a><a href="privacy.html">Privatumas</a></nav>
-      <div class="header-actions document-header-actions"><button class="theme-toggle document-theme-toggle" type="button" aria-label="Įjungti tamsią temą" aria-pressed="false"><span class="icon icon-moon" aria-hidden="true"></span><span class="theme-toggle-label">Tamsi tema</span></button></div>
+      <div class="header-actions document-header-actions"><a data-auth-nav="login" href="login.html">Prisijungti</a><a data-auth-nav="register" class="button button-primary button-small" href="register.html">Registruotis</a><a data-auth-nav="dashboard" class="button button-primary button-small" href="dashboard.html" hidden>Mano paskyra</a><button class="theme-toggle document-theme-toggle" type="button" aria-label="Įjungti tamsią temą" aria-pressed="false"><span class="icon icon-moon" aria-hidden="true"></span><span class="theme-toggle-label">Tamsi tema</span></button></div>
     </div>
   </header>
   <main class="access-layout container" id="main">
     <section class="access-panel" id="request" aria-labelledby="request-title">
       <p class="eyebrow">Prieigos užklausa</p>
       <h1 id="request-title">Gaukite žinią, kai demonstracija bus paruošta.</h1>
-      <p>Šiame šablone paskyrų kūrimo nėra. Palikite el. paštą, jei norite pateikti prieigos užklausą; ji bus išsiųsta tik prijungus formos endpointą.</p>
+      <p>Palikite el. paštą, jei norite pateikti prieigos užklausą; ji bus išsiųsta tik prijungus formos endpointą. Taip pat galite <a href="register.html">sukurti paskyrą</a>.</p>
       <form class="contact-form access-form" id="access-form" method="post" novalidate>
         <div class="form-honeypot" aria-hidden="true"><label for="access-website">Palikite šį lauką tuščią</label><input id="access-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
         <div class="form-field">
@@ -39,7 +39,7 @@
           <span class="field-error" id="access-email-error" aria-live="polite"></span>
         </div>
         <div class="form-consent">
-          <label for="access-privacy-ack"><input id="access-privacy-ack" name="privacy_ack" type="checkbox" required aria-describedby="access-privacy-error"> Susipažinau su <a href="privacy.html">privatumo politikos ruošiniu</a>.</label>
+          <label><input id="access-privacy-ack" name="privacy_ack" type="checkbox" required aria-describedby="access-privacy-error"><span>Susipažinau su <a href="privacy.html">privatumo politikos ruošiniu</a>.</span></label>
           <span class="field-error" id="access-privacy-error" aria-live="polite"></span>
         </div>
         <button class="button button-primary form-submit" type="submit">Pateikti užklausą <span class="icon icon-arrow-right" aria-hidden="true"></span></button>

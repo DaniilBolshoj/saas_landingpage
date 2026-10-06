@@ -33,6 +33,17 @@ document.querySelectorAll('[data-contact-link]').forEach((link) => {
 document.querySelectorAll('[data-brand-home]').forEach((link) => {
   link.setAttribute('aria-label', `${brandName}: pradžia`);
 });
+// This localStorage key is only a navigation hint; it does not protect any page or data.
+let hasAuthHint = false;
+try {
+  hasAuthHint = Object.keys(localStorage).some((key) => key.startsWith('sb-') && key.endsWith('-auth-token'));
+} catch {
+  // Keep public navigation usable when browser storage is unavailable.
+}
+document.querySelectorAll('[data-auth-nav]').forEach((link) => {
+  const isAccountLink = link.dataset.authNav === 'dashboard';
+  link.hidden = isAccountLink ? !hasAuthHint : hasAuthHint;
+});
 document.querySelector('[data-dashboard-label]')?.setAttribute('aria-label', `Dekoratyvus ${brandName} projektų valdymo skydelio pavyzdys`);
 document.title = document.title.replace('Pavyzdys', brandName);
 document.querySelector('meta[property="og:title"]')?.setAttribute('content', document.title);

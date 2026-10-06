@@ -50,7 +50,9 @@
         <a href="#use-cases">Pavyzdžiai</a>
         <a href="#contact">Kontaktai</a>
         <div class="mobile-nav-actions">
-          <a class="button button-primary button-small" href="access.html#request">Prašyti prieigos <span class="icon icon-arrow-right" aria-hidden="true"></span></a>
+          <a data-auth-nav="login" href="login.html">Prisijungti</a>
+          <a data-auth-nav="register" class="button button-primary button-small" href="register.html">Registruotis</a>
+          <a data-auth-nav="dashboard" class="button button-primary button-small" href="dashboard.html" hidden>Mano paskyra</a>
         </div>
       </nav>
 
@@ -59,7 +61,9 @@
           <span class="icon icon-moon" aria-hidden="true"></span>
           <span class="theme-toggle-label">Tamsi tema</span>
         </button>
-        <a class="button button-primary button-small" href="access.html#request">Prašyti prieigos <span class="icon icon-arrow-right" aria-hidden="true"></span></a>
+        <a data-auth-nav="login" href="login.html">Prisijungti</a>
+        <a data-auth-nav="register" class="button button-primary button-small" href="register.html">Registruotis</a>
+        <a data-auth-nav="dashboard" class="button button-primary button-small" href="dashboard.html" hidden>Mano paskyra</a>
       </div>
     </div>
   </header>
@@ -281,7 +285,7 @@
             <span class="field-error" id="message-error" aria-live="polite"></span>
           </div>
           <div class="form-consent">
-            <label for="privacy-ack"><input id="privacy-ack" name="privacy_ack" type="checkbox" required aria-describedby="privacy-error"> Susipažinau su <a href="privacy.html">privatumo politikos ruošiniu</a>.</label>
+            <label><input id="privacy-ack" name="privacy_ack" type="checkbox" required aria-describedby="privacy-error"><span>Susipažinau su <a href="privacy.html">privatumo politikos ruošiniu</a>.</span></label>
             <span class="field-error" id="privacy-error" aria-live="polite"></span>
           </div>
           <button class="button button-primary form-submit" type="submit">Siųsti užklausą <span class="icon icon-arrow-right" aria-hidden="true"></span></button>
