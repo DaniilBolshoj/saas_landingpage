@@ -5,4 +5,6 @@ window.siteConfig = Object.freeze({
   email: 'labas@pavyzdys.example',
   themeStorageKey: 'saas-template-theme',
   formEndpoint: '',
+  supabaseUrl: '',
+  supabaseAnonKey: '',
 });
