@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
 Disallow: /404.html
+Disallow: /dashboard.html
+Disallow: /login.html
+Disallow: /register.html
+Disallow: /forgot-password.html
+Disallow: /reset-password.html
 Sitemap: https://pavyzdys.example/sitemap.xml
