@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="lt" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#4f46e5">
+  <meta name="robots" content="noindex">
+  <title>Mano paskyra – Pavyzdys</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <script src="site-config.js"></script>
+  <script src="theme-init.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body class="document-page auth-page" data-auth-page="dashboard">
+  <a class="skip-link" href="#main">Pereiti prie turinio</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" data-brand-home><span class="brand-mark" aria-hidden="true"><span class="icon icon-compass"></span></span><span><span data-brand-name>Pavyzdys</span><span class="brand-period">.</span></span></a>
+      <nav class="document-nav" aria-label="Puslapio navigacija"><a href="index.html#features">Galimybės</a><a href="index.html#pricing">Kainos</a><a href="privacy.html">Privatumas</a></nav>
+      <div class="header-actions document-header-actions">
+        <a data-auth-nav="login" href="login.html">Prisijungti</a>
+        <a data-auth-nav="register" class="button button-primary button-small" href="register.html">Registruotis</a>
+        <a data-auth-nav="dashboard" href="dashboard.html" hidden>Mano paskyra</a>
+        <button class="theme-toggle document-theme-toggle" type="button" aria-label="Įjungti tamsią temą" aria-pressed="false"><span class="icon icon-moon" aria-hidden="true"></span><span class="theme-toggle-label">Tamsi tema</span></button>
+      </div>
+    </div>
+  </header>
+  <main class="access-layout container" id="main">
+    <section class="access-panel" aria-labelledby="dashboard-title">
+      <p class="eyebrow">Paskyra</p>
+      <h1 id="dashboard-title">Mano paskyra</h1>
+      <p id="dashboard-message" class="auth-message" role="status">Tikrinama paskyra…</p>
+      <!-- JavaScript nukreipimas yra tik patogumas; tikrą duomenų apsaugą užtikrina RLS visose lentelėse. -->
+      <div id="dashboard-content" hidden>
+        <p>Prisijungėte kaip <strong id="account-email"></strong>.</p>
+        <p>Čia netrukus bus jūsų paskyros turinys.</p>
+        <button class="button button-primary" id="sign-out" type="button">Atsijungti</button>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"><div class="container footer-bottom"><p>© <span id="current-year">2026</span> <span data-brand-name>Pavyzdys</span>.</p><a href="privacy.html">Privatumas</a></div></footer>
+  <script src="assets/vendor/supabase.js"></script>
+  <script type="module" src="auth.js"></script>
+</body>
+</html>
