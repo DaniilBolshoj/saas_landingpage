@@ -118,6 +118,7 @@ form?.addEventListener('submit', async (event) => {
   submitting = true;
   setSubmitting(true);
   setMessage('');
+  let completed = false;
 
   try {
     if (page === 'register') {
@@ -127,7 +128,9 @@ form?.addEventListener('submit', async (event) => {
         options: { emailRedirectTo: new URL('dashboard.html', location.href).href },
       });
       if (error) throw error;
+      form.reset();
       setMessage('Jei šis el. paštas dar nenaudojamas, išsiuntėme patvirtinimo laišką. Patvirtinkite el. paštą ir prisijunkite.');
+      completed = true;
     } else if (page === 'login') {
       const { error } = await supabase.auth.signInWithPassword({
         email,
@@ -145,7 +148,9 @@ form?.addEventListener('submit', async (event) => {
         redirectTo: new URL('reset-password.html', location.href).href,
       });
       if (error) throw error;
+      form.reset();
       setMessage('Jei toks el. paštas užregistruotas, išsiuntėme slaptažodžio atstatymo nuorodą.');
+      completed = true;
     } else if (page === 'reset-password') {
       const { error } = await supabase.auth.updateUser({ password: String(values.get('password')) });
       if (error) throw error;
@@ -168,8 +173,12 @@ form?.addEventListener('submit', async (event) => {
       setMessage(responseError(error), true);
     }
   } finally {
-    setSubmitting(false);
-    submitting = false;
+    if (completed) {
+      if (submitButton) submitButton.textContent = 'Išsiųsta';
+    } else {
+      setSubmitting(false);
+      submitting = false;
+    }
   }
 });
 
