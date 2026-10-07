@@ -13,14 +13,14 @@ Lietuviškas statinis puslapis apie kuriamą įrankį, skirtą prekių kainoms L
 - `script.js` – temos pasirinkimas, navigacija ir kontaktų forma.
 - `site-config.js` – vienintelė prekės ženklo, domeno, el. pašto, temos rakto ir formos endpointo konfigūracijos vieta.
 - `theme-init.js` – parenka išsaugotą arba OS temą prieš įkeliant CSS.
-- `about.html`, `privacy.html`, `terms.html`, `404.html` – apie šabloną, teisinių tekstų ruošiniai ir klaidos puslapis.
+- `about.html` – trumpas projekto pristatymas; `privacy.html` ir `terms.html` – dar pritaikytini teisinių tekstų ruošiniai; `404.html` – klaidos puslapis.
 - `assets/fonts/` – vietiniai „DejaVu Sans“ šriftai ir jų licencija.
-- `assets/favicon.svg` – šiam šablonui sukurtas favicon.
+- `assets/favicon.svg` – svetainės favicon.
 - `robots.txt`, `sitemap.xml` – paieškos sistemų metaduomenų pavyzdžiai.
 - `THIRD-PARTY.md` – supakuotų išorinių išteklių kilmė ir licencija.
 - `LICENSE-TEMPLATE.md` – sutarties ruošinys; tai nėra individuali teisinė konsultacija.
 - `RIGHTS-TRANSFER-CHECKLIST.md` – versijos, turto grandinės ir galimo teisių perleidimo kontrolinis sąrašas.
-- `CHANGELOG.md` – šablono versijos pastabos.
+- `CHANGELOG.md` – projekto versijos pastabos.
 
 ## Paleidimas
 

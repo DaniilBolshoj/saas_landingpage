@@ -1,5 +1,12 @@
 # Pakeitimų žurnalas
 
+## 1.0.4-draft – 2026-10-07
+
+- Pašalintas senas prieigos puslapis, o „Apie“ puslapis ir HTML puslapių statinis prekės ženklas atnaujinti į „Kainų Sargą“.
+- `robots.txt` ir `sitemap.xml` perkelti į `kainusargas.example`; svetainės žemėlapyje palikti keturi vieši puslapiai.
+- Pagrindiniam puslapiui pridėti socialinių kortelių vaizdo metaduomenys, o poraštės tekstas pakeistas produkto aprašymu.
+- Kontaktų ir registracijos formų sutikimo varnelės padidintos iki 24 × 24 px.
+
 ## 1.0.3-draft – 2026-10-07
 
 - Pašalintas atskiras prieigos užklausos puslapis; registracija ir kontaktų forma lieka pagrindiniai veiksmai.
