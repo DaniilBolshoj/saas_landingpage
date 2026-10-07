@@ -673,6 +673,46 @@ h3 {
   gap: 12px;
 }
 
+.hero-plan-card {
+  position: relative;
+  z-index: 1;
+  padding: 28px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-float);
+}
+
+.hero-plan-card h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.hero-plan-card .steps-grid {
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.hero-plan-card .steps-grid > li {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: 0 10px;
+  padding: 13px 14px;
+}
+
+.hero-plan-card .step-number {
+  grid-row: span 2;
+}
+
+.hero-plan-card .steps-grid h3 {
+  margin: 0 0 4px;
+}
+
+.hero-plan-card .steps-grid p {
+  margin: 0;
+  font-size: 12px;
+}
+
 .dashboard-wrap {
   position: relative;
   z-index: 1;
@@ -1868,7 +1908,7 @@ h3 {
   .document-header-actions .theme-toggle-label { display: none; }
   .document-theme-toggle { margin-left: 8px; }
   .hero-layout { padding-top: 48px; }
-  .hero h1 { font-size: 48px; }
+  .hero h1 { font-size: clamp(38px, 10vw, 48px); }
   .hero-actions .button { min-height: 45px; padding-inline: 14px; font-size: 12px; }
   .dashboard-content { grid-template-columns: 37px minmax(0, 1fr); }
   .dashboard-main { padding: 16px 10px 13px; }
