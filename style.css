@@ -673,6 +673,10 @@ h3 {
   gap: 12px;
 }
 
+.account-ready-action {
+  justify-content: center;
+}
+
 .hero-plan-card {
   position: relative;
   z-index: 1;
