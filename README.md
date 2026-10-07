@@ -1,17 +1,17 @@
-# Pavyzdys – SaaS svetainės šablonas
+# Kainų Sargas – kuriamas kainų stebėjimo įrankis
 
-Lietuviškas, statinis B2B SaaS nukreipimo puslapis be JavaScript karkasų, ikonų ar šriftų CDN.
+Lietuviškas statinis puslapis apie kuriamą įrankį, skirtą prekių kainoms Lietuvos internetinėse parduotuvėse stebėti. Šiuo metu veikia tik paskyros: registracija, prisijungimas ir slaptažodžio atkūrimas. Kainų stebėjimo funkcijos dar kuriamos.
 
 ## Failų struktūra
 
-- `index.html` – lietuviškas projektų / užduočių valdymo koncepcijos puslapis, naudojimo pavyzdžiai ir interaktyvi lokali demonstracija.
+- `index.html` – produkto aprašas, planuojamos galimybės, paskyrų informacija, DUK ir kontaktų forma.
 - `access.html` – prieigos užklausos forma ir nuoroda į paskyros registraciją.
 - `register.html`, `login.html`, `forgot-password.html`, `reset-password.html` – Supabase Auth paskyros srautai.
 - `dashboard.html` – prisijungusios paskyros puslapis; jo JavaScript patikra yra tik patogumas, o tikrą duomenų apsaugą užtikrina lentelių RLS politika.
 - `auth.js` ir `assets/vendor/supabase.js` – bendras autentifikacijos modulis ir vietoje saugomas Supabase JS v2 klientas.
 - `supabase/schema.sql` – profilių lentelės RLS politika ir automatinio profilio kūrimo trigeris.
 - `style.css` – išdėstymas, temos, piktogramos ir CSS spalvų tokenai.
-- `script.js` – temos pasirinkimas, meniu, modalas ir kontaktų forma.
+- `script.js` – temos pasirinkimas, navigacija ir kontaktų forma.
 - `site-config.js` – vienintelė prekės ženklo, domeno, el. pašto, temos rakto ir formos endpointo konfigūracijos vieta.
 - `theme-init.js` – parenka išsaugotą arba OS temą prieš įkeliant CSS.
 - `about.html`, `privacy.html`, `terms.html`, `404.html` – apie šabloną, teisinių tekstų ruošiniai ir klaidos puslapis.
@@ -23,11 +23,6 @@ Lietuviškas, statinis B2B SaaS nukreipimo puslapis be JavaScript karkasų, ikon
 - `RIGHTS-TRANSFER-CHECKLIST.md` – versijos, turto grandinės ir galimo teisių perleidimo kontrolinis sąrašas.
 - `CHANGELOG.md` – šablono versijos pastabos.
 
-## 1.0.1-draft – 2026-10-04
-
-- Pašalinta demonstracinė registracija ir prisijungimas; šablone lieka tik prieigos užklausų forma.
-- Išvalyti anksčiau saugoti demonstraciniai "saas-demo-users" ir "saas-demo-session" duomenys, kad jie neišliktų naršyklėje.
-
 ## Paleidimas
 
 Svetainė veikia kaip statiniai failai; kūrimo žingsnio nereikia. Patogiam testavimui iš šio katalogo paleiskite:
@@ -36,7 +31,7 @@ Svetainė veikia kaip statiniai failai; kūrimo žingsnio nereikia. Patogiam tes
 python3 -m http.server 8000
 ```
 
-Atverkite `http://localhost:8000`. Kontaktų ir prieigos užklausų formos be `site-config.js` nurodyto serverio endpointo nieko nesiunčia ir aiškiai praneša apie demonstracinį režimą. Interaktyvi demonstracija veikia tik naršyklėje ir nekeičia serverio duomenų.
+Atverkite `http://localhost:8000`. Kontaktų forma be `site-config.js` nurodyto serverio endpointo nieko nesiunčia ir aiškiai praneša apie demonstracinį režimą.
 
 ## Paskyrų paleidimas
 
@@ -51,13 +46,13 @@ Atverkite `http://localhost:8000`. Kontaktų ir prieigos užklausų formos be `s
 
 ## Pritaikymas
 
-1. `site-config.js` pakeiskite prekės ženklo pavadinimą, domeną, el. paštą ir `themeStorageKey`; paskyroms nustatykite `supabaseUrl` bei viešą `supabaseAnonKey`. „Pavyzdys“ ir rezervuotas `.example` domenas yra tik demonstraciniai; „Pavyzdys“ nėra patikrintas prekių ženklų registruose.
-2. `og:url`, `og:image`, `twitter:image`, canonical ir `twitter:card` reikšmes redaguokite tiesiogiai `index.html` produkcinėms vertėms, nes socialiniai robotai JavaScript neįvykdo. `site-config.js` užpildytos vertės padeda naršyklėje veikiantiems rodiniams, bet HTML meta žymės turi būti atnaujintos ir čia, ne tik skripte.
+1. `site-config.js` pakeiskite prekės ženklo pavadinimą, domeną, el. paštą ir `themeStorageKey`; paskyroms nustatykite `supabaseUrl` bei viešą `supabaseAnonKey`. „Kainų Sargas“ yra laikinas pavadinimas, o `.example` domenas ir el. paštas – rezervuoti pavyzdžiai, nepublikuokite jų kaip tikrų kontaktų.
+2. `og:url` ir canonical reikšmes redaguokite tiesiogiai `index.html` produkcinėms vertėms, nes socialiniai robotai JavaScript neįvykdo. Puslapio pavadinimas ir aprašymai taip pat turi būti atnaujinti statiniame HTML.
 3. `style.css` pradžioje keiskite `--color-primary`, teksto, paviršiaus ir ribų tokenus. Tamsios temos primary išvedamas iš to paties pagrindinio tokeno; pakeitę spalvas, dar kartą patikrinkite kontrastą. `assets/favicon.svg` ir `assets/og-cover.svg` spalvos redaguojamos atskirai. Produkcijai sugeneruokite `assets/og-cover.png` ir `assets/favicon-180.png`, jei reikia socialinių kortelių ir Apple ikonos.
 4. `--font-body` ir `--font-display` tokenai parenka vietinius „DejaVu Sans“ failus. Keisdami šriftą atnaujinkite `assets/fonts/` ir `THIRD-PARTY.md`.
-5. Pakeiskite pavyzdinius tekstus, planus, kainas ir naudojimo atvejus. Šablone nėra klientų atsiliepimų ar patvirtintų produkto rezultatų; palikite tik įrodymus, kuriuos galite pagrįsti.
+5. Skelbkite tik patvirtintą produkto informaciją. Kainų stebėjimo funkcijos dar kuriamos, o paslaugos kainodara dar sprendžiama.
 6. Formai įrašykite HTTPS `formEndpoint` reikšmę `site-config.js`. Endpointas turi priimti `POST` su `FormData` ir `Accept: application/json` antrašte. Serveris turi tikrinti honeypot lauką, validuoti įvestis ir riboti užklausas. Naršyklės validacija nepakeičia serverio saugumo ar BDAR atitikties.
-7. Prieš publikuodami nustatykite kainų PVM statusą, bandymo ir mokėjimo sąlygas, tikrą produkto funkcionalumą, integracijas bei duomenų saugojimą. Dabartiniai planai ir funkcijos yra pavyzdžiai, ne pasiūlymas pirkti.
+7. Prieš publikuodami nustatykite kainų PVM statusą, bandymo ir mokėjimo sąlygas bei duomenų saugojimą. Kainodara dar sprendžiama; nenurodykite nepatvirtintų planų ar funkcijų.
 8. Privatumo, sąlygų ir licencijos puslapius pritaikykite faktiniam duomenų tvarkymui ir pardavimo modeliui; prieš publikuodami gaukite teisininko peržiūrą.
 
 ## Išleidimo patikra

@@ -1,5 +1,11 @@
 # Pakeitimų žurnalas
 
+## 1.0.3-draft – 2026-10-07
+
+- Pagrindinis puslapis perrašytas pagal kuriamo „Kainų Sargo“ kainų stebėjimo produkto aprašą; dabartinė paskyrų sistema atskirta nuo planuojamų funkcijų.
+- Pašalintas netikras projektų skydelio maketas, demonstracijos dialogas, projektų pavyzdžiai ir nepatvirtinti kainų planai.
+- Atnaujinti DUK, kontaktų tekstai, SEO metaduomenys ir prekės ženklo konfigūracija.
+
 ## 1.0.2-draft – 2026-10-06
 
 - Pridėti Supabase Auth registracijos, prisijungimo, slaptažodžio atkūrimo ir apsaugotos paskyros puslapiai su PKCE.
