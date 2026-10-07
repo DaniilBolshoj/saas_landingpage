@@ -15,14 +15,10 @@ const configuredEndpoint = config.formEndpoint?.trim();
 const contactForm = document.querySelector('#contact-form');
 const accessForm = document.querySelector('#access-form');
 const toast = document.querySelector('#form-toast');
-const demoDialog = document.querySelector('.demo-dialog');
 const contactEndpoint = configuredEndpoint || '';
 
 document.querySelectorAll('[data-brand-name]').forEach((element) => {
   element.textContent = brandName;
-});
-document.querySelectorAll('[data-brand-domain]').forEach((element) => {
-  element.textContent = cleanBrandDomain;
 });
 document.querySelectorAll('[data-contact-email]').forEach((element) => {
   element.textContent = brandEmail;
@@ -44,7 +40,6 @@ document.querySelectorAll('[data-auth-nav]').forEach((link) => {
   const isAccountLink = link.dataset.authNav === 'dashboard';
   link.hidden = isAccountLink ? !hasAuthHint : hasAuthHint;
 });
-document.querySelector('[data-dashboard-label]')?.setAttribute('aria-label', `Dekoratyvus ${brandName} projektų valdymo skydelio pavyzdys`);
 document.title = document.title.replace('Pavyzdys', brandName);
 document.querySelector('meta[property="og:title"]')?.setAttribute('content', document.title);
 document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', document.title);
@@ -150,29 +145,6 @@ document.addEventListener('click', (event) => {
 
 window.addEventListener('resize', () => {
   if (window.innerWidth > 760) setMenuOpen(false);
-});
-
-/* The demo uses a native dialog, including its built-in focus and Escape handling. */
-document.querySelector('[data-open-demo]')?.addEventListener('click', () => {
-  if (typeof demoDialog?.showModal === 'function') demoDialog.showModal();
-});
-
-document.querySelector('.dialog-close')?.addEventListener('click', () => demoDialog?.close());
-
-demoDialog?.addEventListener('click', (event) => {
-  if (event.target === demoDialog) demoDialog.close();
-});
-
-document.querySelector('[data-close-demo]')?.addEventListener('click', () => demoDialog?.close());
-
-const demoTaskInputs = demoDialog?.querySelectorAll('.demo-tasks input') || [];
-const demoProgress = demoDialog?.querySelector('[data-demo-progress]');
-
-demoTaskInputs.forEach((input) => {
-  input.addEventListener('change', () => {
-    const completed = [...demoTaskInputs].filter((task) => task.checked).length;
-    if (demoProgress) demoProgress.textContent = `Užbaigta ${completed} iš ${demoTaskInputs.length} užduočių.`;
-  });
 });
 
 /* Native constraint validation is paired with field-specific, accessible messages. */
