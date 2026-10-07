@@ -12,7 +12,6 @@
 - Pašalinta demonstracinė registracija ir prisijungimo sistema iš puslapio ir skriptų.
 - Išvalyti anksčiau įrašyti demonstraciniai autentifikacijos duomenys naršyklės saugykloje.
 - Prieigos puslapyje liko tik prieigos užklausos forma ir teisingas dokumentacijos aprašymas.
-
 - Prieigos forma rodo lietuviškas laukų klaidas, atnaujina jas įvedant duomenis ir be endpointo pateikia demonstracinį pranešimą.
 - Pridėtas lietuviškas simbolių skaičiaus linksniavimas; temos spalvos metaduomenims naudojamos HEX reikšmės, o socialinių kortelių skriptas naudoja PNG.
 - Prieigos forma turi atsarginę instrukciją be JavaScript, funkcijų nuorodos turi ekrano skaitytuvams skirtus pavadinimus, pašalinti nenaudojami atsiliepimų ir hero įrodymų stiliai.
