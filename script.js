@@ -7,10 +7,10 @@ const siteHeader = document.querySelector('.site-header');
 const themeButtons = document.querySelectorAll('.theme-toggle');
 const themeMeta = document.querySelector('meta[name="theme-color"]');
 const themeStorageKey = config.themeStorageKey;
-const brandName = config.brandName?.trim() || 'Pavyzdys';
-const brandDomain = config.domain?.trim() || 'pavyzdys.example';
+const brandName = config.brandName?.trim() || 'Kainų Sargas';
+const brandDomain = config.domain?.trim() || 'kainusargas.example';
 const cleanBrandDomain = brandDomain.replace(/^https?:\/\//i, '').replace(/\/+$/, '');
-const brandEmail = config.email?.trim() || 'labas@pavyzdys.example';
+const brandEmail = config.email?.trim() || 'labas@kainusargas.example';
 const configuredEndpoint = config.formEndpoint?.trim();
 const contactForm = document.querySelector('#contact-form');
 const accessForm = document.querySelector('#access-form');
@@ -40,12 +40,12 @@ document.querySelectorAll('[data-auth-nav]').forEach((link) => {
   const isAccountLink = link.dataset.authNav === 'dashboard';
   link.hidden = isAccountLink ? !hasAuthHint : hasAuthHint;
 });
-document.title = document.title.replace('Pavyzdys', brandName);
+document.title = document.title.replace(/Pavyzdys|Kainų Sargas/g, brandName);
 document.querySelector('meta[property="og:title"]')?.setAttribute('content', document.title);
 document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', document.title);
 ['meta[name="description"]', 'meta[property="og:description"]', 'meta[name="twitter:description"]'].forEach((selector) => {
   const meta = document.querySelector(selector);
-  if (meta) meta.content = meta.content.replaceAll('Pavyzdys', brandName);
+  if (meta) meta.content = meta.content.replace(/Pavyzdys|Kainų Sargas/g, brandName);
 });
 const canonicalUrl = `https://${cleanBrandDomain}/`;
 document.querySelector('link[rel="canonical"]')?.setAttribute('href', canonicalUrl);
