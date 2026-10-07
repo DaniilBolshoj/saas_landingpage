@@ -5,8 +5,7 @@ Lietuviškas statinis puslapis apie kuriamą įrankį, skirtą prekių kainoms L
 ## Failų struktūra
 
 - `index.html` – produkto aprašas, planuojamos galimybės, paskyrų informacija, DUK ir kontaktų forma.
-- `access.html` – prieigos užklausos forma ir nuoroda į paskyros registraciją.
-- `register.html`, `login.html`, `forgot-password.html`, `reset-password.html` – Supabase Auth paskyros srautai.
+- `register.html`, `login.html`, `forgot-password.html`, `reset-password.html` – paskyrų srautai.
 - `dashboard.html` – prisijungusios paskyros puslapis; jo JavaScript patikra yra tik patogumas, o tikrą duomenų apsaugą užtikrina lentelių RLS politika.
 - `auth.js` ir `assets/vendor/supabase.js` – bendras autentifikacijos modulis ir vietoje saugomas Supabase JS v2 klientas.
 - `supabase/schema.sql` – profilių lentelės RLS politika ir automatinio profilio kūrimo trigeris.
