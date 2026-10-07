@@ -181,11 +181,11 @@ const fields = [
   { input: document.querySelector('#contact-email'), error: document.querySelector('#email-error'), label: 'El. paštas' },
   { input: document.querySelector('#contact-message'), error: document.querySelector('#message-error'), label: 'Žinutė' },
   { input: document.querySelector('#privacy-ack'), error: document.querySelector('#privacy-error'), label: 'Privatumo patvirtinimas' },
-];
+].filter((field) => field.input && field.error);
 const accessFields = [
   { input: document.querySelector('#access-email'), error: document.querySelector('#access-email-error'), label: 'El. paštas' },
   { input: document.querySelector('#access-privacy-ack'), error: document.querySelector('#access-privacy-error'), label: 'Privatumo patvirtinimas' },
-];
+].filter((field) => field.input && field.error);
 
 function ltPlural(n, one, few, many) {
   const absolute = Math.abs(n);
